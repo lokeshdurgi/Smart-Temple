@@ -1,0 +1,140 @@
+name: Master Enterprise 5-Pillar QA Automation Pipeline (1500 Test Cases)
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master ]
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  # Pillar 1: Unit & API Integration Tests (300 Test Cases)
+  unit-tests:
+    name: Pillar 1 - Unit & API Integration Suite (300 Cases)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Dependencies
+        run: |
+          cd smart-temple-backend-main/test-suite
+          npm install
+      - name: Execute 300 Unit Test Cases
+        run: |
+          cd smart-temple-backend-main/test-suite
+          npm run test:unit
+
+  # Pillar 2: Selenium Web E2E Tests (300 Test Cases)
+  selenium-tests:
+    name: Pillar 2 - Selenium Web E2E Suite (300 Cases)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Dependencies & Browsers
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable firefox
+          cd smart-temple-backend-main/test-suite
+          npm install
+      - name: Execute 300 Selenium Web E2E Test Cases
+        env:
+          HEADLESS: "true"
+        run: |
+          cd smart-temple-backend-main/test-suite
+          npm run test:selenium
+
+  # Pillar 3: Appium Android Mobile Tests (300 Test Cases)
+  appium-tests:
+    name: Pillar 3 - Appium Android Mobile Suite (300 Cases)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Install Appium & Dependencies
+        run: |
+          npm install -g appium
+          appium driver install uiautomator2
+          cd smart-temple-backend-main/test-suite
+          npm install
+      - name: Execute 300 Appium Mobile Test Cases
+        run: |
+          cd smart-temple-backend-main/test-suite
+          npm run test:appium
+
+  # Pillar 4: Load & Performance Tests (300 Scenarios)
+  load-tests:
+    name: Pillar 4 - Load & Performance Suite (300 Scenarios)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Dependencies
+        run: |
+          cd smart-temple-backend-main/test-suite
+          npm install
+      - name: Execute 300 Load Test Scenarios
+        run: |
+          cd smart-temple-backend-main/test-suite
+          npm run test:load
+
+  # Pillar 5: Defensive Security & SAST Audit Tests (300 Rule Checks)
+  security-tests:
+    name: Pillar 5 - Defensive Security Audit Suite (300 Checks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Dependencies
+        run: |
+          cd smart-temple-backend-main/test-suite
+          npm install
+      - name: Execute 300 Defensive Security Test Checks
+        run: |
+          cd smart-temple-backend-main/test-suite
+          npm run test:security
+
+  # Final Consolidated Reporting & Artifact Archiving
+  generate-consolidated-report:
+    name: Consolidated 1,500 Test Case Excel & HTML Artifact Generator
+    needs: [unit-tests, selenium-tests, appium-tests, load-tests, security-tests]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Dependencies
+        run: |
+          cd smart-temple-backend-main/test-suite
+          npm install
+      - name: Execute Master Test Suite & Generate Excel Report
+        run: |
+          cd smart-temple-backend-main/test-suite
+          npm test
+          npm run report:generate
+      - name: Upload Comprehensive 1,500 Test Cases Excel & HTML Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Comprehensive-1500-QA-Execution-Report
+          path: |
+            smart-temple-backend-main/test-suite/reports/Comprehensive_1500_QA_Report.xlsx
+            smart-temple-backend-main/test-suite/reports/
+          retention-days: 30
