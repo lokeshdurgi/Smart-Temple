@@ -5,12 +5,12 @@
   "main": "master-reporter.js",
   "scripts": {
     "test": "npm run test:unit && npm run test:selenium && npm run test:appium && npm run test:load && npm run test:security",
-    "test:unit": "mocha test-suite/1-unit-tests/unit.test.js --timeout 60000",
-    "test:selenium": "mocha test-suite/2-selenium-tests/selenium-300.test.js --timeout 90000",
-    "test:appium": "mocha test-suite/3-appium-tests/appium-300.test.js --timeout 90000",
-    "test:load": "node test-suite/4-load-tests/load-test.js",
-    "test:security": "mocha test-suite/5-security-tests/security-300.test.js --timeout 60000",
-    "report:generate": "node test-suite/master-reporter.js"
+    "test:unit": "mocha 1-unit-tests/unit.test.js --timeout 60000",
+    "test:selenium": "mocha 2-selenium-tests/selenium-300.test.js --timeout 90000",
+    "test:appium": "mocha 3-appium-tests/appium-300.test.js --timeout 90000",
+    "test:load": "node 4-load-tests/load-test.js",
+    "test:security": "mocha 5-security-tests/security-300.test.js --timeout 60000",
+    "report:generate": "node master-reporter.js"
   },
   "keywords": [
     "qa",
