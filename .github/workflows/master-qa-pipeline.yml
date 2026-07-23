@@ -21,11 +21,11 @@ jobs:
           node-version: '20'
       - name: Install Dependencies
         run: |
-          cd smart-temple-backend-main/test-suite
+          cd smart-temple-backend-main/smart-temple-backend-main/test-suite
           npm install
       - name: Execute 300 Unit Test Cases
         run: |
-          cd smart-temple-backend-main/test-suite
+          cd smart-temple-backend-main/smart-temple-backend-main/test-suite
           npm run test:unit
 
   # Pillar 2: Selenium Web E2E Tests (300 Test Cases)
@@ -41,13 +41,13 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable firefox
-          cd smart-temple-backend-main/test-suite
+          cd smart-temple-backend-main/smart-temple-backend-main/test-suite
           npm install
       - name: Execute 300 Selenium Web E2E Test Cases
         env:
           HEADLESS: "true"
         run: |
-          cd smart-temple-backend-main/test-suite
+          cd smart-temple-backend-main/smart-temple-backend-main/test-suite
           npm run test:selenium
 
   # Pillar 3: Appium Android Mobile Tests (300 Test Cases)
@@ -67,11 +67,11 @@ jobs:
         run: |
           npm install -g appium
           appium driver install uiautomator2
-          cd smart-temple-backend-main/test-suite
+          cd smart-temple-backend-main/smart-temple-backend-main/test-suite
           npm install
       - name: Execute 300 Appium Mobile Test Cases
         run: |
-          cd smart-temple-backend-main/test-suite
+          cd smart-temple-backend-main/smart-temple-backend-main/test-suite
           npm run test:appium
 
   # Pillar 4: Load & Performance Tests (300 Scenarios)
@@ -85,11 +85,11 @@ jobs:
           node-version: '20'
       - name: Install Dependencies
         run: |
-          cd smart-temple-backend-main/test-suite
+          cd smart-temple-backend-main/smart-temple-backend-main/test-suite
           npm install
       - name: Execute 300 Load Test Scenarios
         run: |
-          cd smart-temple-backend-main/test-suite
+          cd smart-temple-backend-main/smart-temple-backend-main/test-suite
           npm run test:load
 
   # Pillar 5: Defensive Security & SAST Audit Tests (300 Rule Checks)
@@ -103,11 +103,11 @@ jobs:
           node-version: '20'
       - name: Install Dependencies
         run: |
-          cd smart-temple-backend-main/test-suite
+          cd smart-temple-backend-main/smart-temple-backend-main/test-suite
           npm install
       - name: Execute 300 Defensive Security Test Checks
         run: |
-          cd smart-temple-backend-main/test-suite
+          cd smart-temple-backend-main/smart-temple-backend-main/test-suite
           npm run test:security
 
   # Final Consolidated Reporting & Artifact Archiving
@@ -123,11 +123,11 @@ jobs:
           node-version: '20'
       - name: Install Dependencies
         run: |
-          cd smart-temple-backend-main/test-suite
+          cd smart-temple-backend-main/smart-temple-backend-main/test-suite
           npm install
       - name: Execute Master Test Suite & Generate Excel Report
         run: |
-          cd smart-temple-backend-main/test-suite
+          cd smart-temple-backend-main/smart-temple-backend-main/test-suite
           npm test
           npm run report:generate
       - name: Upload Comprehensive 1,500 Test Cases Excel & HTML Artifacts
@@ -135,6 +135,6 @@ jobs:
         with:
           name: Comprehensive-1500-QA-Execution-Report
           path: |
-            smart-temple-backend-main/test-suite/reports/Comprehensive_1500_QA_Report.xlsx
-            smart-temple-backend-main/test-suite/reports/
+            smart-temple-backend-main/smart-temple-backend-main/test-suite/reports/Comprehensive_1500_QA_Report.xlsx
+            smart-temple-backend-main/smart-temple-backend-main/test-suite/reports/
           retention-days: 30
