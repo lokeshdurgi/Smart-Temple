@@ -1,0 +1,25 @@
+config:
+  target: "https://lokeshdurgi.github.io/Smart-Temple"
+  phases:
+    - duration: 60
+      arrivalRate: 100
+      name: "Baseline Load Test (100 VUs / continuous 1 min)"
+    - duration: 60
+      arrivalRate: 500
+      name: "Stress Test (500 VUs)"
+    - duration: 30
+      arrivalRate: 1000
+      name: "Spike Test (1000 VUs)"
+  defaults:
+    headers:
+      User-Agent: "Artillery-Load-Tester"
+scenarios:
+  - flow:
+      - get:
+          url: "/"
+      - get:
+          url: "/api/menu"
+      - get:
+          url: "/api/orders"
+      - get:
+          url: "/api/dashboard"
