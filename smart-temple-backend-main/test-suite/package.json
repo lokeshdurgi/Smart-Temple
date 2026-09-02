@@ -1,0 +1,43 @@
+{
+  "name": "enterprise-5-pillar-qa-suite",
+  "version": "1.0.0",
+  "description": "Enterprise 5-Pillar QA Automation Suite (1,500 Total Test Cases: Unit, Selenium, Appium, Load, Security)",
+  "main": "master-reporter.js",
+  "scripts": {
+    "test": "npm run test:unit && npm run test:selenium && npm run test:appium && npm run test:load && npm run test:security",
+    "test:unit": "mocha 1-unit-tests/unit.test.js --timeout 60000",
+    "test:selenium": "mocha 2-selenium-tests/selenium-300.test.js --timeout 90000",
+    "test:appium": "mocha 3-appium-tests/appium-300.test.js --timeout 90000",
+    "test:load": "node 4-load-tests/load-test.js",
+    "test:security": "mocha 5-security-tests/security-300.test.js --timeout 60000",
+    "report:generate": "node master-reporter.js"
+  },
+  "keywords": [
+    "qa",
+    "automation",
+    "mocha",
+    "chai",
+    "selenium",
+    "appium",
+    "load-testing",
+    "security-audit",
+    "github-actions"
+  ],
+  "author": "Senior QA Automation Architect",
+  "license": "MIT",
+  "dependencies": {
+    "autocannon": "^7.15.0",
+    "chai": "^4.3.10",
+    "dotenv": "^16.4.5",
+    "exceljs": "^4.4.0",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mocha": "^10.4.0",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^4.3.0",
+    "mochawesome-report-generator": "^6.2.0",
+    "selenium-webdriver": "^4.20.0",
+    "supertest": "^6.3.4",
+    "winston": "^3.13.0"
+  }
+}
