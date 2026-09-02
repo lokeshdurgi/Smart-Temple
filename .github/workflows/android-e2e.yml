@@ -57,7 +57,7 @@ jobs:
             appium driver install uiautomator2
             echo "Stage 10 - Verify Appium Health Check"
             echo "Stage 11 - Execute 400 Appium E2E Test Cases"
-            cd smart-temple-backend-main/smart-temple-backend-main/test-suite
+            cd smart-temple-backend-main/test-suite
             npm install
             npm run test:appium
             echo "Stage 12 & 13 - Capture Screenshots & Logcat"
@@ -70,7 +70,7 @@ jobs:
         with:
           name: appium-android-e2e-artifacts
           path: |
-            smart-temple-backend-main/smart-temple-backend-main/test-suite/reports/
+            smart-temple-backend-main/test-suite/reports/
           retention-days: 30
 
       - name: Stage 19 & 20 - Deploy & Update Historical Reports to GitHub Pages
@@ -78,7 +78,7 @@ jobs:
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./smart-temple-backend-main/smart-temple-backend-main/test-suite/reports
+          publish_dir: ./smart-temple-backend-main/test-suite/reports
 
       - name: Stage 21 - Publish GitHub Action Execution Summary
         if: always()
